@@ -1,4 +1,4 @@
-###CollapsingToolbarLayout 学习笔记
+### CollapsingToolbarLayout 学习笔记
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
