@@ -20,7 +20,7 @@ vi /etc/shadowsocks.json
 
 ```json
 {
-    "server":"000.000.000.000",
+    "server":"000.000.000.000",
     "local_address":"127.0.0.1",
     "local_port":1080,
     "port_password":{
