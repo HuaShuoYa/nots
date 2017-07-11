@@ -1,7 +1,7 @@
 #### shadowsocks 服务器安装
 
 ```bash
-sudo apt-get update					//更新软件源
+sudo apt-get update			//更新软件源
 sudo apt-get install python-pip		//然后安装 PIP 环境
 sudo pip install shadowsocks		//安装 shadowsocks
 ```
@@ -20,7 +20,7 @@ vi /etc/shadowsocks.json
 
 ```json
 {
-    "server":"66.112.212.81",
+    "server":"000.000.000.000",
     "local_address":"127.0.0.1",
     "local_port":1080,
     "port_password":{
@@ -39,7 +39,7 @@ vi /etc/shadowsocks.json
 
 ```json
 {
-    "server":"66.112.212.81",
+    "server":"000.000.000.000",
     "server_port":8388,
     "local_address":"127.0.0.1",
     "local_port":1080,
