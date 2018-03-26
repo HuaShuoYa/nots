@@ -585,3 +585,39 @@ Observable observable3=Observable.never();
 * 作用
 
   指定观察者只能接收到被观察者发送的最后几个事件
+
+##### 根据指定时间过滤事件
+
+* 需求场景
+
+  通过设置指定时间,仅发送在该时间内的事件
+
+* 对应操作符类型
+
+  ![](http://upload-images.jianshu.io/upload_images/944365-e8287b741257a7f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+* 对应操作符使用
+
+**throttleFirst()/throttlrLast()**
+
+* 作用
+
+  在某段事件内,只发送该段时间内第一次/最后一次事件
+
+* 原理示意图
+
+  ![](http://upload-images.jianshu.io/upload_images/944365-1f42132c7350bd79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**sample()**
+
+* 作用
+
+  在某段时间内,只发送该段时间内最新1次事件
+
+> 与throllteLast()操作符类似
+
+**throttleWithTimeout()/debounce()**
+
+* 作用
+
+  发送数据事件时,若2发送事件间隔<指定时间,就会丢弃前一次的数据,直到指定时间内都没有新的数据发射时才会发送最后一次的数据
