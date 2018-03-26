@@ -95,9 +95,9 @@
 
 * 应用场景
 
-​	1.快速创建被观察对象（Observable）&发送10个以上事件（数组形式）
+		1.快速创建被观察对象（Observable）&发送10个以上事件（数组形式）
 
-​	2.数组元素遍历
+		2.数组元素遍历
 
 **额外**
 
@@ -255,3 +255,333 @@ Observable observable3=Observable.never();
 * 应用场景
 
   缓存被观察者发送的事件
+
+### 组合/合并操作符:[地址](https://blog.csdn.net/carson_ho/article/details/78455349)
+
+##### 组合多个被观察者
+
+**concat()/concatArray()**
+
+* 作用
+
+  组合多个被观察者一起发送数据，合并后按发送顺序串行执行
+
+> 二者区别：组合被观察者的数量，即`concat()`组合被观察者数量<=4,而`concatArray()`则可>4
+
+**merge()/mergeArray()**
+
+* 作用
+
+  组合多个被观察者一起发送数据，合并后按时间并行执行
+
+> 1. 二者区别：组合被观察者的数量，即`merge（）`组合被观察者数量≤4个，而`mergeArray（）`则可＞4个
+> 2. 区别上述`concat（）`操作符：同样是组合多个被观察者一起发送数据，但`concat（）`操作符合并后是按发送顺序串行执行
+
+**concatDelayError()/mergeDelayError()**
+
+* 作用
+
+![](http://upload-images.jianshu.io/upload_images/944365-0a86e8e45f1abb6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+##### 合并多个事件
+
+> 该类型的操作符主要是对多个被观察者中的事件进行合并处理
+
+**zip()**
+
+* 作用
+
+  合并多个被观察者`Observable`发送的事件，生产一个新的事件序列(即组合后的事件序列)，并最终发送
+
+> 1.事件组合方式=严格按照原先事件序列 进行对位合并
+>
+> 2.最终合并的事件数量=多个被观察者`Observable`中数量最少的数量
+
+![](http://upload-images.jianshu.io/upload_images/944365-887b81d9bca4924a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**combineLatest()**
+
+* 作用
+
+  当两个`Observales`中的任何一个发送了数据后，将先发送了数据的Observables的最新一个数据与另外一个Observable发送的每个数据结合，最终基于该函数的结果发送数据
+
+> 与`zip()`的区别：`zip()`按个数合并，即1对1合并；`COmbineLastest`按事件合并，即在同一时间上合并
+
+**combineLatestDalayError()**
+
+> 作用类似于`concatDelayError（）` / `mergeDelayError（）`
+
+**reduce()**
+
+* 作用
+
+  把被观察者需要发送的事件聚合成1个事件&发送
+
+> 聚合的逻辑根据需求撰写，但本质都是前2个数据聚合，然后与后1个数据继续进行聚合，依次类推
+
+**collect()**
+
+* 作用
+
+  将被观察者`Observable`发送的数据事件收集到一个数据结构里
+
+##### 发送事件钱追加发送事件
+
+**startWith()/startWithArray()**
+
+* 作用
+
+  在一个被观察者发送事件前，追加发送一些数据/一个新的被观察者
+
+> 追加数据顺序--先调用后追加
+
+##### 统计发送事件数量
+
+**count()**
+
+* 作用
+
+  统计被观察者发送事件的数量
+
+### 功能性操作符
+
+* 作用
+
+  辅助被观察者`Observable`在发送事件时实现一些功能性需求
+
+> 如错误处理、线程调度等
+
+* 类型
+
+![](http://upload-images.jianshu.io/upload_images/944365-ff3df2b42968833d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+##### 连接被观察者&观察者
+
+* 需求场景
+
+  即使得被观察者&观察者形成订阅关系
+
+* 对应操作符
+
+**subscribe()**
+
+* 作用
+
+  订阅，即连接观察者&被观察者
+
+##### 线程调度
+
+* 需求场景
+
+  快速、方便指定&控制被观察者&观察者的工作线程
+
+##### 延时操作
+
+* 需求场景
+
+  即在被观察者发送事件前进行一些延时操作
+
+* 对应操作符使用
+
+**delay()**
+
+* 作用
+
+  使得被观察者延迟一段时间再发送事件
+
+##### 在事件的生命周期中操作
+
+* 需求场景
+
+  在事件发送&接收的整个生命周期过程中进行操作
+
+> 如发送事件前的初始化、发送事件后的回调请求等
+
+* 对应操作符使用
+
+**do()**
+
+* 作用
+
+  在某个事件的生命周期中调用
+
+* 类型
+
+  `do()`操作符有很多个，具体如下：
+
+  ![](http://upload-images.jianshu.io/upload_images/944365-3f411ad304df78d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+#####  错误处理
+
+* 需求场景
+
+  发送事件过程中，遇到错误时的处理机制
+
+* 对应操作符类型
+
+  ![](http://upload-images.jianshu.io/upload_images/944365-abbc7ffe57770e84.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+* 对应操作符使用
+
+**onErrorReturn()**
+
+* 作用
+
+  遇到错误时，发送1个特殊事件&正常终止
+
+> 可捕获在它之前发生的异常
+
+**onErrorResumeNext()**
+
+* 作用
+
+  遇到错误时，发送1个新的`Observable`
+
+> 1.onErrorResumeNext()拦截的错误=Throwable；若拦截Exception请用onEcxeptionResumeNext()
+>
+> 2.若onErrorResumeNext拦截的错误=Exception，则会将错误误传递给观察者的onError方法
+
+**onExceptionResumeNext()**
+
+* 作用 
+
+  遇到错误时，发送1个新的`Observable`
+
+> 1. `onExceptionResumeNext（）`拦截的错误 = `Exception`；若需拦截`Throwable`请用`onErrorResumeNext（）`
+> 2. 若`onExceptionResumeNext（）`拦截的错误 = `Throwable`，则会将错误传递给观察者的`onError`方法
+
+**retry()**
+
+* 作用
+
+  重试，即当出现错误时，让被观察者`Observable`重新发射数据
+
+> 1. 接收到 onError（）时，重新订阅 & 发送事件
+> 2. `Throwable` 和 `Exception`都可拦截
+
+**retryUntil()**
+
+* 作用
+
+  出现错误后，判断是否需要重新发送数据
+
+> 1. 若需要重新发送&持续遇到错误，则持续重试
+> 2. 作用类似`retry(Predicate predicate)`
+
+* 具体使用
+
+  具体使用类似于`retry(Predicate predicate)`，唯一区别：返回true则不重新发送数据事件
+
+**reteyWhen()**
+
+* 作用
+
+  遇到错误时，将发生的错误传递给一个新的被观察者`Observable`,并决定是否需要重新订阅原始被观察者`Observable`&发送事件
+
+##### 重复发送
+
+* 需求场景
+
+  重复不断地发送被观察者事件
+
+* 对应操作符类型
+
+  repeat()&repeatWhen()
+
+**rapeat()**
+
+* 作用
+
+  无条件地、重复发送被观察者事件
+
+> 具备重载方法，可设置重复创建次数
+
+**repeatWhen()**
+
+* 作用
+
+  有条件地、重复发送被观察者事件
+
+* 原理
+
+  将原始Observable停止发送事件的标识(Complete()/Error())转换成1个Object类型数据传递给一个新的被观察者（Observable），以此决定是否重新订阅&发送原来的Observable
+
+> 1. 若新被观察者（`Observable`）返回1个`Complete` / `Error`事件，则不重新订阅 & 发送原来的 `Observable`
+> 2. 若新被观察者（`Observable`）返回其余事件时，则重新订阅 & 发送原来的 `Observable`
+
+### 过滤操作符:[地址](https://blog.csdn.net/carson_ho/article/details/78683064)
+
+* 作用
+
+  过滤/筛选被观察者`Observable`发送的事件&观察者`Observer`接收的事件
+
+* 类型
+
+  ![](http://upload-images.jianshu.io/upload_images/944365-83fb8e7038dfd51a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+* 应用场景
+
+  * 根据 指定条件 过滤事件
+  * 根据 指定事件数量 过滤事件
+  * 根据 指定时间 过滤事件
+  * 根据 指定事件位置 过滤事件
+
+#####  根据指定条件过滤事件
+
+* 需求场景
+
+  通过设置指定的过滤条件，当且仅当该事件满足条件，就将该事件过滤
+
+* 对应操作符类型
+
+  ![](http://upload-images.jianshu.io/upload_images/944365-ac41ab7e0cc5d2fd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+* 对应操作符使用
+
+**Filter()**
+
+* 作用
+
+  过滤特定条件的事件
+
+**ofType()**
+
+* 作用
+
+  过滤指定数据类型的数据
+
+**skip()/shipLat()**
+
+* 作用
+
+  跳过某个事件
+
+**distinct()/distinctUntilChanged()**
+
+* 作用
+
+  过滤事件序列中的重复的事件/连续重复的事件
+
+#####  根据指定事件数量过滤事件
+
+* 需求场景
+
+  通过设置指定的事件数量，仅发送特定数量的事件
+
+* 对应操作符类型
+
+  `take()`&`takeLast()`
+
+* 对应操作符使用
+
+**take（）**
+
+* 作用
+
+  指定观察者最多能接收到的事件数量
+
+**takeLast()**
+
+* 作用
+
+  指定观察者只能接收到被观察者发送的最后几个事件
