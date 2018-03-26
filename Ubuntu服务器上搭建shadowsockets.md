@@ -26,8 +26,7 @@ vi /etc/shadowsocks.json
     "port_password":{
         "8381":"king",
         "8382":"cat",
-        "8383":"yinran",
-        "8384":"other"
+        "8383":"other"
     },
     "timeout":300,
     "method":"aes-256-cfb",
