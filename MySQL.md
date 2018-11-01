@@ -8,6 +8,8 @@
 
 * **use `DBName`;**选中数据库
 
+* **DATE_FORMAT;**格式化时间('%Y-%m-%d %H:%i:%s','%Y-%m-%d %T')
+
 * 创建表：
 
   ```mysql
