@@ -44,8 +44,6 @@ b.拨打电话 :
 adb shell am force-stop packageName
 ```
 
-
-
 * 查看当前显示的activity
 
 ```
@@ -60,31 +58,3 @@ setprop service.adb.tcp.port 5555
 stop adbd
 start adbd
 ```
-
-```sh
-[mount -o rw,remount /system, 
-rm -fr /system/priv-app/Launcher3/Launcher3.apk, 
-rm -fr /system/priv-app/SystemUI/SystemUI.apk, 
-rm -fr /system/app/webview/webview.apk,
-reboot]
-```
-
-```sh
- [mount -o rw,remount /system, 
- rm -fr /system/app/Launcher3/Launcher3.apk, 
- rm -fr /system/app/webview/webview.apk, 
- rm -fr /system/priv-app/SystemUI/SystemUI.apk, 
- reboot]
-```
-
-```sh
-[mount -o rw,remount /system, 
-mv /mnt/internal_sd/Android/data/com.surfkj.updatemaincard/cache/maincard.apk /mnt/internal_sd/Android/data/com.surfkj.updatemaincard/cache/maincard.a, 
-cp /mnt/internal_sd/Android/data/com.surfkj.updatemaincard/cache/maincard.a /system/app/, 
-chmod 777 /system/app/maincard.a, 
-mv /system/app/maincard.a /system/app/maincard.apk, 
-chmod 644 /system/app/maincard.apk, 
-reboot]
-```
-
-`com.microsoft.launcher.Launcher`
